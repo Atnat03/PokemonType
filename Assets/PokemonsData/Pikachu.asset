@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0105a6a82084375a73005a65357e5d8, type: 3}
+  m_Name: Pikachu
+  m_EditorClassIdentifier: Assembly-CSharp::CommandPattern.PokemonSO
+  prefab: {fileID: 7925609118856872951, guid: 2d80e213cef8d184a8de8ecfc5630dc7, type: 3}
+  Name: Pikachu
+  type: 3
+  HP: 100
+  Attack1:
+    Name: Thunder
+    Damage: 50
+  Attack2:
+    Name: Quick Attack
+    Damage: 20

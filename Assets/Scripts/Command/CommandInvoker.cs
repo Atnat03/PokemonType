@@ -57,7 +57,7 @@ namespace CommandPattern
                 _redoStack.Push(command);
             }
         }
-
+        
         public static int UndoCount => _undoStack.Count;
         public static int RedoCount => _redoStack.Count;
     }

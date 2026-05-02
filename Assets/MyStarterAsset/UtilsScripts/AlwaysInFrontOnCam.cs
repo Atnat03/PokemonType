@@ -23,9 +23,13 @@ public class AlwaysInFrontOnCam : MonoBehaviour
 			_target = Camera.main.transform;
 	}
 
-	void LateUpdate()
+	private void LateUpdate()
 	{
-		transform.rotation = Quaternion.LookRotation(_target.position);
+		if (_target != null)
+		{
+			Vector3 directionToCamera = _target.transform.position - transform.position;
+			transform.rotation = Quaternion.LookRotation(-directionToCamera);
+		}
 	}
 	
 	#endregion

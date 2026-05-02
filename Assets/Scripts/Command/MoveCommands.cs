@@ -17,4 +17,18 @@ namespace CommandPattern
 
         public void Undo() => _player.TryMove(-_direction);
     }
+    
+    public class ThrowPokemonCommand : ICommand
+    {
+        private readonly PlayerDresseur _player;
+
+        public ThrowPokemonCommand(PlayerDresseur player)
+        {
+            _player = player;
+        }
+
+        public bool Execute() => _player.ThrowPokemon();
+
+        public void Undo() => _player.ThrowPokemon();
+    }
 }

@@ -61,7 +61,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Click",
+                    "name": "ThrowPokemon",
                     "type": "Button",
                     "id": "691cebbc-4285-40ac-84b8-f40046382eaa",
                     "expectedControlType": "",
@@ -95,6 +95,17 @@
                 },
                 {
                     "name": "",
+                    "id": "9e61b0ca-4d3a-4f6a-961d-6ac642dfa031",
+                    "path": "<Gamepad>/leftStick/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveUp",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "e17e3b53-5636-413e-9ce1-e3c25fcefba0",
                     "path": "<Keyboard>/s",
                     "interactions": "",
@@ -108,6 +119,17 @@
                     "name": "",
                     "id": "2a2fbde7-71a9-438f-9a40-ce52c4ee6384",
                     "path": "<Gamepad>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveDown",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b1464c3c-71ec-4f62-966a-2083e0f898fb",
+                    "path": "<Gamepad>/leftStick/down",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -139,6 +161,17 @@
                 },
                 {
                     "name": "",
+                    "id": "facce9b8-ab58-4a08-99c4-776acd0a2e9d",
+                    "path": "<Gamepad>/leftStick/left",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "9138d744-8a7c-485d-b8cb-3a73f706a695",
                     "path": "<Keyboard>/d",
                     "interactions": "",
@@ -152,6 +185,17 @@
                     "name": "",
                     "id": "9878f670-d252-4697-b041-1f5fd89cc2dc",
                     "path": "<Gamepad>/dpad/right",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MoveRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3d187d50-d7d2-425a-8428-b72a9d0b84f9",
+                    "path": "<Gamepad>/leftStick/right",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -206,22 +250,22 @@
                 {
                     "name": "",
                     "id": "caaf74e7-1097-47d6-bf4a-1f6d66847cef",
-                    "path": "<Mouse>/leftButton",
+                    "path": "<Keyboard>/c",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Click",
+                    "action": "ThrowPokemon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
                     "id": "21b8dd43-8eac-44c2-80e9-9e81e4889380",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Click",
+                    "action": "ThrowPokemon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

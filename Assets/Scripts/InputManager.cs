@@ -7,7 +7,8 @@ namespace CommandPattern
     public class InputManager : MonoBehaviour
     {
         [Header("References")]
-        [SerializeField] private PlayerController playerController;
+        private PlayerController _playerController;
+        private PlayerDresseur _playerDresseur;
 
         [Header("Hold Settings")]
         [SerializeField] private float holdDelay = 0.2f;
@@ -20,6 +21,7 @@ namespace CommandPattern
         private InputAction _moveRightAction;
         private InputAction _undoAction;
         private InputAction _redoAction;
+        private InputAction _throwAction;
 
         private Vector3 _heldDirection = Vector3.zero;
         private float _holdTimer = 0f;
@@ -28,6 +30,8 @@ namespace CommandPattern
         private void Awake()
         {
             _playerInput = GetComponent<PlayerInput>();
+            _playerController = GetComponent<PlayerController>();
+            _playerDresseur = GetComponent<PlayerDresseur>();
             
             BindActions();
         }
@@ -46,6 +50,8 @@ namespace CommandPattern
 
             _undoAction.performed += OnUndo;
             _redoAction.performed += OnRedo;
+            
+            _throwAction.performed += OnThrow;
         }
 
         private void OnDisable()
@@ -62,6 +68,8 @@ namespace CommandPattern
 
             _undoAction.performed -= OnUndo;
             _redoAction.performed -= OnRedo;
+            
+            _throwAction.performed -= OnThrow;
         }
 
         private void OnMoveUp(InputAction.CallbackContext ctx) => StartHold(Vector3.forward);
@@ -74,6 +82,7 @@ namespace CommandPattern
         private void OnMoveRightCanceled(InputAction.CallbackContext ctx) => StopHold();
         private void OnUndo(InputAction.CallbackContext ctx) => CommandInvoker.Undo();
         private void OnRedo(InputAction.CallbackContext ctx) => CommandInvoker.Redo();
+        private void OnThrow(InputAction.CallbackContext obj) => CommandInvoker.ExecuteCommand(new ThrowPokemonCommand(_playerDresseur));
 
         private void Update()
         {
@@ -88,7 +97,7 @@ namespace CommandPattern
             }
 
             _holdTimer += Time.deltaTime;
-            if (_holdTimer >= holdDelay && !playerController.IsMoving)
+            if (_holdTimer >= holdDelay && !_playerController.IsMoving)
             {
                 ExecuteMove(_heldDirection);
                 _holdTimer = 0f;
@@ -111,7 +120,7 @@ namespace CommandPattern
 
         private void ExecuteMove(Vector3 direction)
         {
-            CommandInvoker.ExecuteCommand(new MoveCommand(playerController, direction));
+            CommandInvoker.ExecuteCommand(new MoveCommand(_playerController, direction));
         }
 
         private void BindActions()
@@ -122,6 +131,7 @@ namespace CommandPattern
             _moveRightAction = _playerInput.actions["MoveRight"];
             _undoAction = _playerInput.actions["Undo"];
             _redoAction = _playerInput.actions["Redo"];
+            _throwAction = _playerInput.actions["ThrowPokemon"];
         }
     }
 }
