@@ -10,6 +10,7 @@ namespace CommandPattern
         public string Name;
         public PokemonType type;
         public int HP;
+        public Sprite icon;
         public PokemonAttack Attack1;
         public PokemonAttack Attack2;
     }
@@ -19,10 +20,11 @@ namespace CommandPattern
     {
         public string Name;
         public int Damage;
+        public PokemonType Type;
     }
 
     public enum PokemonType
     {
-        Fire, Water, Grass, Electric, Fighting, Psychic
+        Fire, Water, Grass, Electric, Fighting, Psychic, Normal
     }
 }

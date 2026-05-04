@@ -16,9 +16,12 @@ MonoBehaviour:
   Name: Pikachu
   type: 3
   HP: 100
+  icon: {fileID: -600796990, guid: 8603eaea04154024c9b1849949c2ffe0, type: 3}
   Attack1:
     Name: Thunder
     Damage: 50
+    Type: 3
   Attack2:
     Name: Quick Attack
     Damage: 20
+    Type: 6

@@ -14,16 +14,16 @@ public class PokemonBehavior : MonoBehaviour
 
 	#region Variables
 	
-	#endregion
-
-
-	#region Fonctions
-
 	public PokemonSO data;
 	public int currentHP;
 
 	[Header("View")]
 	[SerializeField] private TextMeshProUGUI textHP;
+	
+	#endregion
+
+
+	#region Fonctions
 	
 	protected virtual void Awake()
 	{

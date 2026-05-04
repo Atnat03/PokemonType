@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using CommandPattern;
 using Fights;
 using UnityEngine;
@@ -13,6 +14,13 @@ namespace Factory
 		void EnemyAttack();
 		void End();
 	}
+
+	[Serializable]
+	public class PokemonListData
+	{
+		public PokemonSO data;
+		public float percentageLuckSpawn;
+	}
 	
 	public abstract class EncounterGenerator : MonoBehaviour
 	{
@@ -23,7 +31,7 @@ namespace Factory
 
 		#region Variables
 
-		[SerializeField] private PokemonSO pokemon;
+		[SerializeField] private List<PokemonListData> pokemonSpawnable;
 		[SerializeField] private GameObject fightUI;
 		[SerializeField] public bool isFight = false;
 		
@@ -53,6 +61,7 @@ namespace Factory
 			currentPlayerPokemon.transform.LookAt(posToLookAt);
 			
 			//EnemyPokemon
+			PokemonSO pokemon = GetRandomPokemon();
 			currentPokemon = PokemonFactory.Instance.CreatePokemon(pokemon, transform.position, Quaternion.identity);
 			currentPokemon.transform.LookAt(posToLookAt);
 			
@@ -66,6 +75,30 @@ namespace Factory
 			encounter.StartEncounter();
 
 			FightManager.Instance.InitFight(currentPlayerPokemon, currentPokemon, this);
+		}
+
+		PokemonSO GetRandomPokemon()
+		{
+			float total = 0f;
+
+			foreach (PokemonListData item in pokemonSpawnable)
+			{
+				total += item.percentageLuckSpawn;
+			}
+
+			float randomValue = UnityEngine.Random.Range(0f, total);
+
+			foreach (PokemonListData item in pokemonSpawnable)
+			{
+				if (randomValue < item.percentageLuckSpawn)
+				{
+					return item.data;
+				}
+
+				randomValue -= item.percentageLuckSpawn;
+			}
+
+			return null;
 		}
 
 		public virtual void EndFight()

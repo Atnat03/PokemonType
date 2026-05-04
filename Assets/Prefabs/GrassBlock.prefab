@@ -83,7 +83,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3852b1e8afc4702a9466d47ce039a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Factory.WildEncounterGenerator
-  pokemon: {fileID: 11400000, guid: 4160754a24b350545b574480c674e852, type: 2}
+  pokemonSpawnable:
+  - data: {fileID: 11400000, guid: 4160754a24b350545b574480c674e852, type: 2}
+    percentageLuckSpawn: 25
+  - data: {fileID: 11400000, guid: 17278aaa24d050849801fccc919242ba, type: 2}
+    percentageLuckSpawn: 25
+  - data: {fileID: 11400000, guid: 540bdd123f68bb543a57926ac67fea4c, type: 2}
+    percentageLuckSpawn: 25
+  - data: {fileID: 11400000, guid: 99a72db59a4115d4eaf3afe23d82ba40, type: 2}
+    percentageLuckSpawn: 25
   fightUI: {fileID: 0}
   isFight: 0
   grassBlock: {fileID: 172561208511087610}

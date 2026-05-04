@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0105a6a82084375a73005a65357e5d8, type: 3}
+  m_Name: Carapuce
+  m_EditorClassIdentifier: Assembly-CSharp::CommandPattern.PokemonSO
+  prefab: {fileID: 9006688073575157646, guid: 230d6ff762a39fc4d93e44effa64069d, type: 3}
+  Name: Carapuce
+  type: 1
+  HP: 100
+  icon: {fileID: -681537056, guid: 8603eaea04154024c9b1849949c2ffe0, type: 3}
+  Attack1:
+    Name: Charge
+    Damage: 50
+    Type: 6
+  Attack2:
+    Name: "Pistolet \xE0 eau"
+    Damage: 80
+    Type: 1

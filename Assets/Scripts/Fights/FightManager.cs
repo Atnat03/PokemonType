@@ -18,6 +18,8 @@ namespace Fights
         private PokemonBehavior enemyPokemon;
         
         private EncounterGenerator currentEncounter;
+        
+        [SerializeField] private PlayerDresseur playerDresseur;
 
         private void Awake()
         {
@@ -125,6 +127,16 @@ namespace Fights
                 Console.Print("Défaite...", ColorConsole.Red);
             
             currentEncounter.EndFight();
+        }
+
+        public void TryCatch()
+        {
+            if (currentState != FightState.PlayerTurn) return;
+            if (enemyPokemon == null) return;
+
+            playerDresseur.AddPokemonInTeam(enemyPokemon.data);
+            
+            EndFight(true);
         }
     }
 }
