@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 24c82c3f7954463a9ae248491432306f, type: 3}
+  m_Name: Cascade
+  m_EditorClassIdentifier: Assembly-CSharp::AttackSO
+  Name: Cascade
+  Damage: 80
+  Type: 1
+  vfxPrefab: {fileID: 4939678945622161379, guid: 867d13d8ce290314096787f1182722c2, type: 3}
+  vfxDelay: 1
+  postDelay: 1
+  vfxOffset: {x: 0, y: 0, z: 0}
+  AnimationTrigger: 0

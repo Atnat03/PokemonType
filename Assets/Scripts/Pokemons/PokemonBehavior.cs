@@ -1,56 +1,73 @@
 using System;
+using System.Collections;
 using CommandPattern;
 using MyPrint;
 using TMPro;
 using UnityEngine;
 using Console = MyPrint.Console;
 
-public class PokemonBehavior : MonoBehaviour
+namespace Pokemons
 {
-	#region Properties
-
-	#endregion
-
-
-	#region Variables
-	
-	public PokemonSO data;
-	public int currentHP;
-
-	[Header("View")]
-	[SerializeField] private TextMeshProUGUI textHP;
-	
-	#endregion
-
-
-	#region Fonctions
-	
-	protected virtual void Awake()
+	public class PokemonBehavior : MonoBehaviour
 	{
-		currentHP = data.HP;
-		textHP.text = currentHP.ToString();
-	}
+		#region Properties
 
-	public virtual int Attack1()
-	{
-		Console.Print("Attack 1 : " + data.Attack1.Name, ColorConsole.Pink);
-		return data.Attack1.Damage;
-	}
-	
-	public virtual int Attack2()
-	{
-		Console.Print("Attack 2 : " + data.Attack2.Name, ColorConsole.Pink);
-		return data.Attack2.Damage;
-	}
-	
-	public void TakeDamage(int damage)
-	{
-		currentHP -= damage;
-	
-		textHP.text = currentHP.ToString();
+		#endregion
+
+
+		#region Variables
 		
-		Console.Print($"HP restant : {currentHP}", ColorConsole.Yellow);
+		public PokemonSO data;
+		public float currentHP = 100;
+		
+		Animator animator;
+		
+		#endregion
+
+
+		#region Fonctions
+
+		private void Awake()
+		{
+			animator = GetComponent<Animator>();
+		}
+
+		public IEnumerator PerformAttack(AttackSO attack, Transform target, Action<int> onDone)
+		{
+			if (animator != null)
+			{
+				string triggerName = attack.AnimationTrigger == AnimationAttackType.Throw ? "Throw" : "Charge";
+
+				animator.SetTrigger(triggerName);
+			}
+			
+			yield return new WaitForSeconds(attack.vfxDelay);
+
+			if (attack.vfxPrefab != null)
+				Instantiate(attack.vfxPrefab, target.position + attack.vfxOffset, target.rotation);
+
+			yield return new WaitForSeconds(attack.postDelay);
+			onDone?.Invoke(attack.Damage);
+		}
+		
+		public void TakeDamage(int damage)
+		{
+			currentHP -= Mathf.Clamp(damage, 0, 100);
+		
+			Console.Print($"HP restant : {currentHP}", ColorConsole.Yellow);
+		}
+
+		public void SetUpHP()
+		{
+			currentHP = data.HP;
+		}
+
+		public void AddHealth(int health)
+		{
+			currentHP += Mathf.Clamp(health, 0, 100);
+		}
+		
+		#endregion
 	}
-	
-	#endregion
+
 }

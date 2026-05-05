@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using CommandPattern;
 using Fights;
+using Pokemons;
 using UnityEngine;
 
 namespace Factory
@@ -9,10 +10,6 @@ namespace Factory
 	public interface IEncounter
 	{
 		void StartEncounter();
-		void Attack();
-		void Heal();
-		void EnemyAttack();
-		void End();
 	}
 
 	[Serializable]
@@ -22,7 +19,7 @@ namespace Factory
 		public float percentageLuckSpawn;
 	}
 	
-	public abstract class EncounterGenerator : MonoBehaviour
+	public abstract class EncounterGenerator : Observer
 	{
 		#region Properties
 
@@ -32,8 +29,6 @@ namespace Factory
 		#region Variables
 
 		[SerializeField] private List<PokemonListData> pokemonSpawnable;
-		[SerializeField] private GameObject fightUI;
-		[SerializeField] public bool isFight = false;
 		
 		PlayerDresseur currentDresseur;
 		PokemonBehavior currentPokemon;
@@ -46,35 +41,19 @@ namespace Factory
 
 		protected abstract IEncounter CreateEncounter(PokemonBehavior player, PokemonBehavior enemy);
 		
-		protected virtual void Awake()
+		protected virtual void TriggerFight(PokemonSO firstPokemon)
 		{
-			fightUI.SetActive(false);
-		}
-
-		protected virtual void TriggerFight(PlayerDresseur player)
-		{
-			Vector3 posToLookAt = player.transform.position - Vector3.up + Vector3.forward;
+			if (FightManager.Instance.isFight) return;
 			
-			//PlayerPokemon
-			Vector3 playerPokePos = player.transform.position - Vector3.up + Vector3.forward * 0.5f;
-			currentPlayerPokemon = PokemonFactory.Instance.CreatePokemon(player.FirstPokemon.data, playerPokePos, Quaternion.identity);
-			currentPlayerPokemon.transform.LookAt(posToLookAt);
-			
-			//EnemyPokemon
 			PokemonSO pokemon = GetRandomPokemon();
-			currentPokemon = PokemonFactory.Instance.CreatePokemon(pokemon, transform.position, Quaternion.identity);
-			currentPokemon.transform.LookAt(posToLookAt);
-			
-			fightUI.SetActive(true);
-			currentDresseur = player;
-			isFight = true;
-			currentDresseur.StartFight(true);
 			
 			IEncounter encounter = CreateEncounter(currentPlayerPokemon, currentPokemon);
 
 			encounter.StartEncounter();
 
-			FightManager.Instance.InitFight(currentPlayerPokemon, currentPokemon, this);
+			InvokeEvent(new OnSwapScene{newSceneIndex = ScenesState.Fight});
+			
+			FightManager.Instance.InitFight(firstPokemon, pokemon, this);
 		}
 
 		PokemonSO GetRandomPokemon()
@@ -103,15 +82,13 @@ namespace Factory
 
 		public virtual void EndFight()
 		{
-			fightUI.SetActive(false);
-			isFight = false;
-			currentDresseur.StartFight(false);
-			
 			if(currentPokemon != null)
 				Destroy(currentPokemon.gameObject);
 			
 			if(currentPlayerPokemon != null)
 				Destroy(currentPlayerPokemon.gameObject);
+			
+			InvokeEvent(new OnSwapScene{newSceneIndex = ScenesState.Default});
 		}
 		
 		#endregion

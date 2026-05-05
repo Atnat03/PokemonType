@@ -1,4 +1,5 @@
 using MyPrint;
+using Pokemons;
 using UnityEngine;
 using Console = MyPrint.Console;
 
@@ -8,11 +9,10 @@ namespace Factory
     {
         private void OnTriggerEnter(Collider other)
         {
-            if (isFight) return;
-
             if (other.TryGetComponent<PlayerDresseur>(out PlayerDresseur dresseur))
             {
-                TriggerFight(dresseur);
+                TriggerFight(dresseur.FirstPokemon);
+                
                 Console.Print("Combat contre un dresseur !", ColorConsole.Red);
             }
         }

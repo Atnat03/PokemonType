@@ -1,5 +1,8 @@
 using System;
+using System.Collections;
+using CommandPattern;
 using MyPrint;
+using Pokemons;
 using UnityEngine;
 using Console = MyPrint.Console;
 using Random = UnityEngine.Random;
@@ -14,32 +17,33 @@ namespace Factory
 
         [Header("ProbaTrigger")] 
         [SerializeField, Range(0, 100)] private float probabilityTrigger = 50;
+        
+        private bool isCooldown = false;
 
-        protected override void Awake()
+        protected void Awake()
         {
-            base.Awake();
-
             grassBlock = GetComponent<GrassBlock>();
             collider = GetComponent<BoxCollider>();
         }
 
         private void Start()
         {
-            collider.size = new Vector3(grassBlock.Size.x, 0.25f, grassBlock.Size.y);
+            collider.size = new Vector3(grassBlock.Size.x * 0.75f, 0.25f, grassBlock.Size.y * 0.75f);
         }
 
         private void OnTriggerEnter(Collider other)
         {
-            if (isFight) return;
-
             if (other.TryGetComponent<PlayerDresseur>(out PlayerDresseur dresseur))
             {
+                if (dresseur.wasInFight) return;
+                
                 float n = Random.Range(0, 100);
                 bool isTrigger = n < probabilityTrigger;
 
                 if (isTrigger)
                 {
-                    TriggerFight(dresseur);
+                    TriggerFight(dresseur.FirstPokemon);
+                    
                     Console.Print("Rencontre sauvage !", ColorConsole.Green);
                 }
             }
@@ -50,9 +54,9 @@ namespace Factory
             return new WildEncounter(player, enemy);
         }
 
-        protected override void TriggerFight(PlayerDresseur player)
+        protected override void TriggerFight(PokemonSO pokemon)
         {
-            base.TriggerFight(player);
+            base.TriggerFight(pokemon);
 
             grassBlock.EnableGrass(false);
         }
@@ -60,7 +64,6 @@ namespace Factory
         public override void EndFight()
         {
             base.EndFight();
-
             grassBlock.EnableGrass(true);
         }
     }

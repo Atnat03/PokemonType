@@ -5,52 +5,37 @@ using CommandPattern;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlayerDresseur : MonoBehaviour
+public class PlayerDresseur : Observer
 {
 	#region Properties
 
-	public PokemonBehavior FirstPokemon => pokemonsTeam[0].prefab;
+	public PokemonSO FirstPokemon => playerData.pokemonsTeam[0];
 	
 	#endregion
-
-
-	#region Variables
-
-	#endregion
-
-
+	
 	#region Fonctions
 	
 	PlayerController playerController;
-	private bool isInFight = false;
+	PlayerData playerData;
+	
+	public bool wasInFight = false;
 	
 	[SerializeField] private PokemonFollow pokemonFollowPrefab;
 	[SerializeField] private Transform spawnPointPokemon;
 	private PokemonFollow currentPokemon;
 	
 	[SerializeField] Animator animator;
-	
-	[Header("Pokemons")]
-	[SerializeField] private List<PokemonSO> pokemonsTeam;
-	[SerializeField] private PokemonSO staterPokemon;
-	
-	//Actions
-	public Action<List<PokemonSO>> OnTeamUpdate;
 
 	private void Awake()
 	{
 		playerController = GetComponent<PlayerController>();
-	}
-
-	private void Start()
-	{
-		AddPokemonInTeam(staterPokemon);
+		playerData = PlayerData.Instance;
+		
+		ListenToEvent<OnSwapScene>(Freeze);
 	}
 
 	public bool ThrowPokemon()
 	{
-		if (isInFight) return false;
-		
 		animator.SetTrigger("Throw");
 
 		StartCoroutine(DelayDoOnPokemon());
@@ -73,35 +58,24 @@ public class PlayerDresseur : MonoBehaviour
 		}
 	}
 	
-	#endregion
-
-	public void StartFight(bool state)
+	void Freeze(OnSwapScene data)
 	{
-		playerController.enabled = !state;
+		playerController.enabled = data.newSceneIndex == ScenesState.Default;
 		animator.SetFloat("Moving", 0);
-		isInFight = state;
+
+		if (data.newSceneIndex == ScenesState.Default)
+		{
+			StartCoroutine(DelayRespawn());
+		}
 	}
 
-	#region Team
-
-	public void AddPokemon() => AddPokemonInTeam(staterPokemon);
-	
-	public void AddPokemonInTeam(PokemonSO pokemon)
-	{ 
-		pokemonsTeam.Add(pokemon);
-		OnTeamUpdate?.Invoke(pokemonsTeam);
-	}
-	public void RemovePokemonFromTeam(PokemonSO pokemon)
-	{ 
-		pokemonsTeam.Remove(pokemon);
-		OnTeamUpdate?.Invoke(pokemonsTeam);
-	}
-	public void SetFirstPokemonInTeam(PokemonSO pokemon)
-	{ 
-		pokemonsTeam[0] = pokemon;
-		OnTeamUpdate?.Invoke(pokemonsTeam);
+	IEnumerator DelayRespawn()
+	{
+		wasInFight = true;
+		yield return new WaitForSeconds(1.5f);
+		wasInFight = false;
 	}
 	
-
 	#endregion
+
 }

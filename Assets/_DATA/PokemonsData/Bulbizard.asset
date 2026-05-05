@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0105a6a82084375a73005a65357e5d8, type: 3}
+  m_Name: Bulbizard
+  m_EditorClassIdentifier: Assembly-CSharp::CommandPattern.PokemonSO
+  prefab: {fileID: 6190846452764358177, guid: adaf986b9b3691642ba987d98c6a8241, type: 3}
+  Name: Bulbizard
+  type: 2
+  HP: 100
+  icon: {fileID: 777570437, guid: 8603eaea04154024c9b1849949c2ffe0, type: 3}
+  Attack1: {fileID: 11400000, guid: 057db9106bf090148a7015b6f6899a48, type: 2}
+  Attack2: {fileID: 0}
+  Attack3: {fileID: 0}
+  Attack4: {fileID: 0}

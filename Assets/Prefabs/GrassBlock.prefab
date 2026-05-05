@@ -48,7 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: '::'
   grassPrefab: {fileID: 5098166735730487887, guid: e1911aeff5cba5f47861e9584df91e0e, type: 3}
   size: {x: 2, y: 2}
-  density: 20
+  density: 10
   scaleRange: {x: 1, y: 2}
 --- !u!65 &2415794790876637257
 BoxCollider:
@@ -92,7 +92,5 @@ MonoBehaviour:
     percentageLuckSpawn: 25
   - data: {fileID: 11400000, guid: 99a72db59a4115d4eaf3afe23d82ba40, type: 2}
     percentageLuckSpawn: 25
-  fightUI: {fileID: 0}
-  isFight: 0
   grassBlock: {fileID: 172561208511087610}
-  probabilityTrigger: 20
+  probabilityTrigger: 100

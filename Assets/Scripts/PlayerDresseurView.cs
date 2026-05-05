@@ -1,23 +1,29 @@
+using System;
 using System.Collections.Generic;
 using CommandPattern;
 using UnityEngine;
 
 public class PlayerDresseurView : MonoBehaviour
 {
-    [SerializeField] private PlayerDresseur playerDresseur;
+    private PlayerData playerData;
 
     [Header("Team UI")] 
     [SerializeField] private PokemonIconTeam soloPokemonUI;
     [SerializeField] private Transform teamParent;
+    
+    private void Awake()
+    {
+        playerData = PlayerData.Instance;
+    }
 
     void OnEnable()
     {
-        playerDresseur.OnTeamUpdate += UpdateUI;
+        playerData.OnTeamUpdate += UpdateUI;
     }
 
     void OnDisable()
     {
-        playerDresseur.OnTeamUpdate -= UpdateUI;
+        playerData.OnTeamUpdate -= UpdateUI;
     }
     
     private void UpdateUI(List<PokemonSO> team)

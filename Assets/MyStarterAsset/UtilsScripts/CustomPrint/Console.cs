@@ -7,6 +7,13 @@ namespace MyPrint
 	{
 		
 		#region Classic Print
+		
+		public static void Print(string msg)
+		{
+			Debug.Log(msg);
+		}
+		
+		
 		//Print avec une couleur et un style
 		public static void Print(string msg, ColorConsole color, ConsoleStyle style)
 		{
